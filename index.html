@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>독일어 여행 회화</title>
+<style>
+  :root {
+    --main: #2C5F8A;
+    --accent: #E8A23D;
+    --bg: #F7F5F0;
+    --card: #FFFFFF;
+    --text: #2B2B2B;
+    --sub: #767676;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-bottom: 40px;
+  }
+  header {
+    background: var(--main);
+    color: white;
+    padding: 20px 16px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  header h1 {
+    margin: 0 0 4px;
+    font-size: 20px;
+  }
+  header p {
+    margin: 0 0 14px;
+    font-size: 13px;
+    opacity: 0.85;
+  }
+  #search {
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+  #mode-tabs {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--main);
+  }
+  #mode-tabs button {
+    flex: 1;
+    padding: 9px 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent;
+    color: white;
+    font-size: 13px;
+  }
+  #mode-tabs button.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #2B2B2B;
+    font-weight: 700;
+  }
+  nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 16px;
+    background: var(--main);
+    position: sticky;
+    top: 96px;
+    z-index: 9;
+  }
+  nav button {
+    flex: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent;
+    color: white;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  nav button.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #2B2B2B;
+    font-weight: 600;
+  }
+  main {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+  .category-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--main);
+    margin: 22px 4px 10px;
+  }
+  .category-title:first-child {
+    margin-top: 6px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .card .text {
+    flex: 1;
+    min-width: 0;
+  }
+  .de {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .ko-pron {
+    font-size: 14px;
+    color: var(--accent);
+    margin-top: 2px;
+  }
+  .ko-mean {
+    font-size: 13px;
+    color: var(--sub);
+    margin-top: 3px;
+  }
+  .play-btn {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: var(--main);
+    color: white;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .play-btn:active {
+    background: var(--accent);
+  }
+  .play-btn.playing {
+    background: var(--accent);
+  }
+  #empty {
+    text-align: center;
+    color: var(--sub);
+    padding: 40px 0;
+    display: none;
+  }
+  #voice-note {
+    font-size: 12px;
+    color: var(--sub);
+    text-align: center;
+    padding: 10px 16px 0;
+  }
+
+  .flash-wrap {
+    max-width: 560px;
+    margin: 20px auto 0;
+  }
+  .flash-progress {
+    text-align: center;
+    color: var(--sub);
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  .flash-card {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .flash-cat {
+    font-size: 12px;
+    color: var(--main);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .flash-de {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 6px 0 8px;
+    line-height: 1.3;
+  }
+  .flash-ko {
+    font-size: 16px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .flash-mean {
+    font-size: 14px;
+    color: var(--sub);
+    margin-bottom: 20px;
+  }
+  .flash-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .flash-btn {
+    padding: 11px 18px;
+    border-radius: 999px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .flash-btn.primary { background: var(--main); color: white; }
+  .flash-btn.accent { background: var(--accent); color: #2B2B2B; }
+  .flash-btn.ghost { background: #ECE9E3; color: var(--text); }
+  .flash-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+    gap: 10px;
+  }
+  .flash-nav .flash-btn { flex: 1; }
+  .mic-hint {
+    font-size: 12px;
+    color: var(--sub);
+    margin-top: 10px;
+  }
+  .mic-result {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .mic-result.good { background: #E4F6E9; color: #1E7A3D; }
+  .mic-result.mid  { background: #FFF3D6; color: #8A6100; }
+  .mic-result.bad  { background: #FDE7E7; color: #B23B3B; }
+  .mic-recognized {
+    font-size: 13px;
+    color: var(--sub);
+    margin-top: 6px;
+    font-weight: 400;
+  }
+  .auto-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 18px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  #auto-speed {
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇩🇪 독일어 여행 회화</h1>
+  <p>독일어 원문 + 한글 발음 + 음성 듣기</p>
+  <input id="search" type="text" placeholder="문장 검색 (예: 화장실, 감사)">
+</header>
+
+<div id="mode-tabs"></div>
+<nav id="tabs"></nav>
+
+<main id="list-view">
+  <div id="list"></div>
+  <p id="empty">검색 결과가 없어요.</p>
+</main>
+
+<main id="test-view" style="display:none"></main>
+<main id="auto-view" style="display:none"></main>
+
+<p id="voice-note"></p>
+
+<script>
+const phrases = [
+  { cat: "인사 / 기본표현", de: "Hallo!", ko: "할로", mean: "안녕하세요! (편하게)" },
+  { cat: "인사 / 기본표현", de: "Guten Morgen!", ko: "구텐 모르겐", mean: "좋은 아침이에요" },
+  { cat: "인사 / 기본표현", de: "Guten Tag!", ko: "구텐 탁", mean: "안녕하세요 (낮 인사)" },
+  { cat: "인사 / 기본표현", de: "Guten Abend!", ko: "구텐 아벤트", mean: "안녕하세요 (저녁 인사)" },
+  { cat: "인사 / 기본표현", de: "Auf Wiedersehen!", ko: "아우프 비더제엔", mean: "안녕히 가세요" },
+  { cat: "인사 / 기본표현", de: "Tschüss!", ko: "취스", mean: "안녕! (캐주얼 작별인사)" },
+  { cat: "인사 / 기본표현", de: "Wie geht es Ihnen?", ko: "비 게트 에스 이넨", mean: "어떻게 지내세요?" },
+  { cat: "인사 / 기본표현", de: "Mir geht es gut, danke.", ko: "미어 게트 에스 굿, 당케", mean: "잘 지내요, 감사합니다" },
+  { cat: "인사 / 기본표현", de: "Danke schön.", ko: "당케 쇤", mean: "대단히 감사합니다" },
+  { cat: "인사 / 기본표현", de: "Bitte schön.", ko: "비테 쇤", mean: "천만에요 / 여기 있어요" },
+  { cat: "인사 / 기본표현", de: "Entschuldigung.", ko: "엔슐디궁", mean: "실례합니다 / 죄송합니다" },
+  { cat: "인사 / 기본표현", de: "Ja. / Nein.", ko: "야 / 나인", mean: "네 / 아니요" },
+  { cat: "인사 / 기본표현", de: "Ich heiße ...", ko: "이히 하이세 ...", mean: "제 이름은 ...입니다" },
+  { cat: "인사 / 기본표현", de: "Ich komme aus Südkorea.", ko: "이히 코메 아우스 쥣코레아", mean: "저는 한국에서 왔어요" },
+  { cat: "인사 / 기본표현", de: "Sprechen Sie Englisch?", ko: "슈프레헨 지 엥글리쉬", mean: "영어 하세요?" },
+  { cat: "인사 / 기본표현", de: "Ich verstehe nicht.", ko: "이히 페어슈테에 니히트", mean: "이해 못했어요" },
+  { cat: "인사 / 기본표현", de: "Können Sie das wiederholen?", ko: "쾨넨 지 다스 비더홀렌", mean: "다시 말씀해 주시겠어요?" },
+  { cat: "인사 / 기본표현", de: "Langsamer, bitte.", ko: "랑자머, 비테", mean: "천천히 말씀해 주세요" },
+
+  { cat: "공항 / 입국", de: "Wo ist der Ausgang?", ko: "보 이스트 데어 아우스강", mean: "출구가 어디예요?" },
+  { cat: "공항 / 입국", de: "Wo ist das Gepäckband?", ko: "보 이스트 다스 게패크반트", mean: "수하물 찾는 곳이 어디예요?" },
+  { cat: "공항 / 입국", de: "Ich habe nichts zu verzollen.", ko: "이히 하베 니히츠 추 페어촐렌", mean: "신고할 물건 없어요" },
+  { cat: "공항 / 입국", de: "Ich bin Tourist.", ko: "이히 빈 투리스트", mean: "저는 관광객이에요" },
+  { cat: "공항 / 입국", de: "Ich bleibe eine Woche.", ko: "이히 블라이베 아이네 보헤", mean: "일주일 머물 거예요" },
+  { cat: "공항 / 입국", de: "Wo finde ich ein Taxi?", ko: "보 핀데 이히 아인 탁시", mean: "택시는 어디서 타요?" },
+  { cat: "공항 / 입국", de: "Wo ist die Information?", ko: "보 이스트 디 인포마치온", mean: "안내소는 어디예요?" },
+
+  { cat: "호텔", de: "Ich habe eine Reservierung.", ko: "이히 하베 아이네 레저비어룽", mean: "예약했어요" },
+  { cat: "호텔", de: "Haben Sie ein Zimmer frei?", ko: "하벤 지 아인 침머 프라이", mean: "빈 방 있나요?" },
+  { cat: "호텔", de: "Wie viel kostet das Zimmer pro Nacht?", ko: "비 필 코스테트 다스 침머 프로 나흐트", mean: "1박에 얼마예요?" },
+  { cat: "호텔", de: "Ist Frühstück inklusive?", ko: "이스트 프뤼슈튁 인클루지베", mean: "조식 포함인가요?" },
+  { cat: "호텔", de: "Wo ist der Aufzug?", ko: "보 이스트 데어 아우프추크", mean: "엘리베이터는 어디예요?" },
+  { cat: "호텔", de: "Ich möchte auschecken.", ko: "이히 뫼히테 아우스체켄", mean: "체크아웃 할게요" },
+  { cat: "호텔", de: "Kann ich früher einchecken?", ko: "칸 이히 프뤼어 아인체켄", mean: "일찍 체크인 할 수 있나요?" },
+  { cat: "호텔", de: "Das WLAN-Passwort, bitte.", ko: "다스 벨란 파스보르트, 비테", mean: "와이파이 비밀번호 알려주세요" },
+
+  { cat: "레스토랑 / 카페", de: "Einen Tisch für zwei, bitte.", ko: "아이넨 티슈 퓌어 츠바이, 비테", mean: "2인석 부탁해요" },
+  { cat: "레스토랑 / 카페", de: "Die Speisekarte, bitte.", ko: "디 슈파이제카르테, 비테", mean: "메뉴판 주세요" },
+  { cat: "레스토랑 / 카페", de: "Was empfehlen Sie?", ko: "바스 엠페엘렌 지", mean: "추천 메뉴가 뭐예요?" },
+  { cat: "레스토랑 / 카페", de: "Ich hätte gern ein Bier.", ko: "이히 헤테 게른 아인 비어", mean: "맥주 한 잔 주세요" },
+  { cat: "레스토랑 / 카페", de: "Ich bin Vegetarier.", ko: "이히 빈 베게타리어", mean: "저는 채식주의자예요" },
+  { cat: "레스토랑 / 카페", de: "Die Rechnung, bitte.", ko: "디 레히눙, 비테", mean: "계산서 주세요" },
+  { cat: "레스토랑 / 카페", de: "Es war sehr lecker!", ko: "에스 바 제어 레커", mean: "정말 맛있었어요!" },
+  { cat: "레스토랑 / 카페", de: "Kann ich mit Karte bezahlen?", ko: "칸 이히 미트 카르테 베찰렌", mean: "카드로 계산할 수 있나요?" },
+  { cat: "레스토랑 / 카페", de: "Zum Wohl! / Prost!", ko: "춤 볼 / 프로스트", mean: "건배!" },
+  { cat: "레스토랑 / 카페", de: "Wo ist die Toilette?", ko: "보 이스트 디 토일레테", mean: "화장실이 어디예요?" },
+
+  { cat: "쇼핑", de: "Was kostet das?", ko: "바스 코스테트 다스", mean: "이거 얼마예요?" },
+  { cat: "쇼핑", de: "Das ist zu teuer.", ko: "다스 이스트 추 토이어", mean: "너무 비싸요" },
+  { cat: "쇼핑", de: "Kann ich das anprobieren?", ko: "칸 이히 다스 안프로비어렌", mean: "입어봐도 되나요?" },
+  { cat: "쇼핑", de: "Haben Sie das in einer anderen Größe?", ko: "하벤 지 다스 인 아이너 안더렌 그뢰세", mean: "다른 사이즈 있나요?" },
+  { cat: "쇼핑", de: "Ich nehme das.", ko: "이히 네메 다스", mean: "이걸로 살게요" },
+  { cat: "쇼핑", de: "Nur schauen, danke.", ko: "누어 샤우엔, 당케", mean: "그냥 구경 중이에요" },
+  { cat: "쇼핑", de: "Kann ich eine Tüte bekommen?", ko: "칸 이히 아이네 튀테 베코멘", mean: "봉투 하나 주시겠어요?" },
+  { cat: "쇼핑", de: "Wo ist die Kasse?", ko: "보 이스트 디 카세", mean: "계산대가 어디예요?" },
+
+  { cat: "길찾기 / 교통", de: "Wo ist der Bahnhof?", ko: "보 이스트 데어 반호프", mean: "기차역이 어디예요?" },
+  { cat: "길찾기 / 교통", de: "Wie komme ich zum Stadtzentrum?", ko: "비 코메 이히 춤 슈타트첸트룸", mean: "시내로 어떻게 가나요?" },
+  { cat: "길찾기 / 교통", de: "Ist das weit von hier?", ko: "이스트 다스 바이트 폰 히어", mean: "여기서 먼가요?" },
+  { cat: "길찾기 / 교통", de: "Eine Fahrkarte nach Berlin, bitte.", ko: "아이네 파카르테 나흐 베를린, 비테", mean: "베를린행 표 한 장 주세요" },
+  { cat: "길찾기 / 교통", de: "Wann fährt der nächste Zug?", ko: "반 페어트 데어 넥스테 추크", mean: "다음 기차는 언제 출발해요?" },
+  { cat: "길찾기 / 교통", de: "Welche Linie fährt zum Flughafen?", ko: "벨헤 리니에 페어트 춤 플룩하펜", mean: "공항 가는 노선이 뭐예요?" },
+  { cat: "길찾기 / 교통", de: "Halten Sie hier, bitte.", ko: "할텐 지 히어, 비테", mean: "여기서 세워주세요 (택시)" },
+  { cat: "길찾기 / 교통", de: "Links. / Rechts. / Geradeaus.", ko: "링크스 / 레히츠 / 게라데아우스", mean: "왼쪽 / 오른쪽 / 직진" },
+
+  { cat: "응급상황", de: "Hilfe!", ko: "힐페", mean: "도와주세요!" },
+  { cat: "응급상황", de: "Ich brauche einen Arzt.", ko: "이히 브라우헤 아이넨 아르츠트", mean: "의사가 필요해요" },
+  { cat: "응급상황", de: "Rufen Sie die Polizei!", ko: "루펜 지 디 폴리차이", mean: "경찰을 불러주세요!" },
+  { cat: "응급상황", de: "Rufen Sie einen Krankenwagen!", ko: "루펜 지 아이넨 크랑켄바겐", mean: "구급차를 불러주세요!" },
+  { cat: "응급상황", de: "Ich habe mein Handy verloren.", ko: "이히 하베 마인 핸디 페어로렌", mean: "휴대폰을 잃어버렸어요" },
+  { cat: "응급상황", de: "Ich habe meinen Pass verloren.", ko: "이히 하베 마이넨 파스 페어로렌", mean: "여권을 잃어버렸어요" },
+  { cat: "응급상황", de: "Wo ist das nächste Krankenhaus?", ko: "보 이스트 다스 넥스테 크랑켄하우스", mean: "가장 가까운 병원이 어디예요?" },
+  { cat: "응급상황", de: "Mir ist schlecht.", ko: "미어 이스트 슐레히트", mean: "몸이 안 좋아요" },
+
+  { cat: "숫자 / 시간", de: "eins, zwei, drei, vier, fünf", ko: "아인스, 츠바이, 드라이, 피어, 퓐프", mean: "1, 2, 3, 4, 5" },
+  { cat: "숫자 / 시간", de: "sechs, sieben, acht, neun, zehn", ko: "젝스, 지벤, 아흐트, 노인, 첸", mean: "6, 7, 8, 9, 10" },
+  { cat: "숫자 / 시간", de: "zwanzig", ko: "츠반치히", mean: "20" },
+  { cat: "숫자 / 시간", de: "hundert", ko: "훈더트", mean: "100" },
+  { cat: "숫자 / 시간", de: "Wie viel Uhr ist es?", ko: "비 필 우어 이스트 에스", mean: "지금 몇 시예요?" },
+  { cat: "숫자 / 시간", de: "Um wie viel Uhr?", ko: "움 비 필 우어", mean: "몇 시에요?" },
+];
+
+const categories = [...new Set(phrases.map(p => p.cat))];
+let activeCat = "전체";
+let query = "";
+let mode = "list";
+let flashIndex = 0;
+let autoPlaying = false;
+let autoWaitMs = 2500;
+let autoTimer = null;
+
+const tabsEl = document.getElementById("tabs");
+const modeTabsEl = document.getElementById("mode-tabs");
+const listViewEl = document.getElementById("list-view");
+const listEl = document.getElementById("list");
+const emptyEl = document.getElementById("empty");
+const testViewEl = document.getElementById("test-view");
+const autoViewEl = document.getElementById("auto-view");
+const searchEl = document.getElementById("search");
+const voiceNoteEl = document.getElementById("voice-note");
+
+function getFilteredPhrases() {
+  const q = query.trim().toLowerCase();
+  return phrases.filter(p => {
+    const inCat = activeCat === "전체" || p.cat === activeCat;
+    const inQuery = !q || p.de.toLowerCase().includes(q) || p.ko.includes(q) || p.mean.toLowerCase().includes(q);
+    return inCat && inQuery;
+  });
+}
+
+function renderModeTabs() {
+  const modes = [["list", "목록"], ["test", "🎤 발음 테스트"], ["auto", "▶ 자동재생"]];
+  modeTabsEl.innerHTML = "";
+  modes.forEach(([key, label]) => {
+    const btn = document.createElement("button");
+    btn.textContent = label;
+    if (key === mode) btn.classList.add("active");
+    btn.onclick = () => {
+      if (mode === "auto" && key !== "auto") stopAuto();
+      mode = key;
+      flashIndex = 0;
+      renderModeTabs();
+      renderMode();
+    };
+    modeTabsEl.appendChild(btn);
+  });
+}
+
+function renderTabs() {
+  const all = ["전체", ...categories];
+  tabsEl.innerHTML = "";
+  all.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.textContent = cat;
+    if (cat === activeCat) btn.classList.add("active");
+    btn.onclick = () => {
+      if (mode === "auto") stopAuto();
+      activeCat = cat;
+      flashIndex = 0;
+      renderTabs();
+      renderMode();
+    };
+    tabsEl.appendChild(btn);
+  });
+}
+
+function renderMode() {
+  listViewEl.style.display = mode === "list" ? "" : "none";
+  testViewEl.style.display = mode === "test" ? "" : "none";
+  autoViewEl.style.display = mode === "auto" ? "" : "none";
+  if (mode === "list") renderList();
+  else if (mode === "test") renderTestView();
+  else if (mode === "auto") renderAutoView();
+}
+
+function renderList() {
+  listEl.innerHTML = "";
+  const filtered = getFilteredPhrases();
+  emptyEl.style.display = filtered.length ? "none" : "block";
+
+  let lastCat = null;
+  filtered.forEach(p => {
+    if (p.cat !== lastCat) {
+      const h = document.createElement("div");
+      h.className = "category-title";
+      h.textContent = p.cat;
+      listEl.appendChild(h);
+      lastCat = p.cat;
+    }
+    listEl.appendChild(renderCard(p));
+  });
+}
+
+function renderCard(p) {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const text = document.createElement("div");
+  text.className = "text";
+  text.innerHTML = `
+    <div class="de">${p.de}</div>
+    <div class="ko-pron">${p.ko}</div>
+    <div class="ko-mean">${p.mean}</div>
+  `;
+
+  const btn = document.createElement("button");
+  btn.className = "play-btn";
+  btn.textContent = "🔊";
+  btn.onclick = () => speak(p.de, btn);
+
+  card.appendChild(text);
+  card.appendChild(btn);
+  return card;
+}
+
+// ---- 발음 테스트 모드 ----
+function renderTestView() {
+  const list = getFilteredPhrases();
+  testViewEl.innerHTML = "";
+  if (!list.length) {
+    testViewEl.innerHTML = '<p style="text-align:center;color:var(--sub);padding:40px 0;">문장이 없어요.</p>';
+    return;
+  }
+  if (flashIndex >= list.length) flashIndex = 0;
+  if (flashIndex < 0) flashIndex = list.length - 1;
+  const p = list[flashIndex];
+
+  const wrap = document.createElement("div");
+  wrap.className = "flash-wrap";
+  wrap.innerHTML = `
+    <div class="flash-progress">${flashIndex + 1} / ${list.length}</div>
+    <div class="flash-card">
+      <div class="flash-cat">${p.cat}</div>
+      <div class="flash-de">${p.de}</div>
+      <div class="flash-ko">${p.ko}</div>
+      <div class="flash-mean">${p.mean}</div>
+      <div class="flash-actions">
+        <button class="flash-btn primary" id="test-listen">🔊 정답 듣기</button>
+        <button class="flash-btn accent" id="test-mic">🎤 내 발음 테스트</button>
+      </div>
+      <div class="mic-hint">마이크 버튼을 누르고 위 문장을 따라 말해보세요 (크롬 브라우저 권장)</div>
+      <div id="mic-result-area"></div>
+    </div>
+    <div class="flash-nav">
+      <button class="flash-btn ghost" id="test-prev">◀ 이전</button>
+      <button class="flash-btn ghost" id="test-next">다음 ▶</button>
+    </div>
+  `;
+  testViewEl.appendChild(wrap);
+
+  document.getElementById("test-listen").onclick = (e) => speak(p.de, e.currentTarget);
+  document.getElementById("test-mic").onclick = () => startMicTest(p);
+  document.getElementById("test-prev").onclick = () => { flashIndex--; renderTestView(); };
+  document.getElementById("test-next").onclick = () => { flashIndex++; renderTestView(); };
+}
+
+function normalize(s) {
+  return s.toLowerCase().replace(/[.,!?…]/g, "").replace(/\s+/g, " ").trim();
+}
+
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));
+  for (let i = 0; i <= m; i++) dp[i][0] = i;
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++) {
+    for (let j = 1; j <= n; j++) {
+      dp[i][j] = a[i - 1] === b[j - 1]
+        ? dp[i - 1][j - 1]
+        : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+    }
+  }
+  return dp[m][n];
+}
+
+function similarity(a, b) {
+  const dist = levenshtein(a, b);
+  const maxLen = Math.max(a.length, b.length) || 1;
+  return 1 - dist / maxLen;
+}
+
+function startMicTest(p) {
+  const resultArea = document.getElementById("mic-result-area");
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!Recognition) {
+    resultArea.innerHTML = '<div class="mic-result bad">이 브라우저는 음성 인식을 지원하지 않아요. 크롬을 이용해주세요.</div>';
+    return;
+  }
+  resultArea.innerHTML = '<div class="mic-result mid">🎙️ 듣고 있어요... 지금 말씀해보세요</div>';
+  try {
+    const rec = new Recognition();
+    rec.lang = "de-DE";
+    rec.interimResults = false;
+    rec.maxAlternatives = 1;
+    rec.onresult = (e) => {
+      const said = e.results[0][0].transcript;
+      const score = similarity(normalize(said), normalize(p.de));
+      let cls = "bad", msg = "다시 시도해보세요";
+      if (score >= 0.75) { cls = "good"; msg = "정확해요! 🎉"; }
+      else if (score >= 0.45) { cls = "mid"; msg = "비슷해요, 조금 더 연습해보세요"; }
+      resultArea.innerHTML = `<div class="mic-result ${cls}">${msg}<div class="mic-recognized">인식된 발음: "${said}"</div></div>`;
+    };
+    rec.onerror = (e) => {
+      resultArea.innerHTML = `<div class="mic-result bad">인식 실패 (${e.error}). 마이크 권한을 확인해주세요.</div>`;
+    };
+    rec.start();
+  } catch (err) {
+    resultArea.innerHTML = '<div class="mic-result bad">마이크를 시작할 수 없어요. 마이크 권한을 확인해주세요.</div>';
+  }
+}
+
+// ---- 자동재생 모드 ----
+function renderAutoView() {
+  const list = getFilteredPhrases();
+  autoViewEl.innerHTML = "";
+  if (!list.length) {
+    autoViewEl.innerHTML = '<p style="text-align:center;color:var(--sub);padding:40px 0;">문장이 없어요.</p>';
+    return;
+  }
+  if (flashIndex >= list.length) flashIndex = list.length - 1;
+  if (flashIndex < 0) flashIndex = 0;
+  const p = list[flashIndex];
+
+  const wrap = document.createElement("div");
+  wrap.className = "flash-wrap";
+  wrap.innerHTML = `
+    <div class="flash-progress">${flashIndex + 1} / ${list.length}</div>
+    <div class="flash-card">
+      <div class="flash-cat">${p.cat}</div>
+      <div class="flash-de">${p.de}</div>
+      <div class="flash-ko">${p.ko}</div>
+      <div class="flash-mean">${p.mean}</div>
+    </div>
+    <div class="auto-controls">
+      <button class="flash-btn primary" id="auto-toggle">${autoPlaying ? "⏸ 일시정지" : "▶ 자동재생 시작"}</button>
+      <button class="flash-btn ghost" id="auto-stop">⏹ 처음으로</button>
+      <select id="auto-speed">
+        <option value="1500">빠르게</option>
+        <option value="2500">보통</option>
+        <option value="4000">천천히</option>
+      </select>
+    </div>
+  `;
+  autoViewEl.appendChild(wrap);
+
+  document.getElementById("auto-speed").value = String(autoWaitMs);
+  document.getElementById("auto-speed").onchange = (e) => { autoWaitMs = Number(e.target.value); };
+  document.getElementById("auto-toggle").onclick = () => {
+    if (autoPlaying) pauseAuto(); else startAuto();
+  };
+  document.getElementById("auto-stop").onclick = stopAuto;
+}
+
+function startAuto() {
+  autoPlaying = true;
+  playAutoStep();
+}
+
+function pauseAuto() {
+  autoPlaying = false;
+  speechSynthesis.cancel();
+  clearTimeout(autoTimer);
+  renderAutoView();
+}
+
+function stopAuto() {
+  autoPlaying = false;
+  speechSynthesis.cancel();
+  clearTimeout(autoTimer);
+  flashIndex = 0;
+  if (mode === "auto") renderAutoView();
+}
+
+function playAutoStep() {
+  if (!autoPlaying) return;
+  renderAutoView();
+  const list = getFilteredPhrases();
+  const p = list[flashIndex];
+  speak(p.de, null, () => {
+    if (!autoPlaying) return;
+    autoTimer = setTimeout(() => {
+      if (!autoPlaying) return;
+      if (flashIndex < list.length - 1) {
+        flashIndex++;
+        playAutoStep();
+      } else {
+        autoPlaying = false;
+        renderAutoView();
+      }
+    }, autoWaitMs);
+  });
+}
+
+// ---- 음성 합성 (공통) ----
+let germanVoice = null;
+function pickVoice() {
+  const voices = speechSynthesis.getVoices();
+  germanVoice =
+    voices.find(v => v.lang === "de-DE") ||
+    voices.find(v => v.lang && v.lang.startsWith("de")) ||
+    null;
+  voiceNoteEl.textContent = germanVoice
+    ? `음성: ${germanVoice.name}`
+    : "이 기기에서 독일어 음성을 찾지 못했어요. 크롬 브라우저 사용을 권장해요.";
+}
+if ("speechSynthesis" in window) {
+  pickVoice();
+  speechSynthesis.onvoiceschanged = pickVoice;
+} else {
+  voiceNoteEl.textContent = "이 브라우저는 음성 재생을 지원하지 않아요.";
+}
+
+function speak(text, btn, onEnd) {
+  if (!("speechSynthesis" in window)) { if (onEnd) onEnd(); return; }
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "de-DE";
+  if (germanVoice) utter.voice = germanVoice;
+  utter.rate = 0.85;
+  document.querySelectorAll(".play-btn.playing").forEach(b => b.classList.remove("playing"));
+  if (btn) btn.classList.add("playing");
+  utter.onend = () => {
+    if (btn) btn.classList.remove("playing");
+    if (onEnd) onEnd();
+  };
+  speechSynthesis.speak(utter);
+}
+
+searchEl.addEventListener("input", (e) => {
+  if (mode === "auto") stopAuto();
+  query = e.target.value;
+  flashIndex = 0;
+  renderMode();
+});
+
+renderModeTabs();
+renderTabs();
+renderMode();
+</script>
+
+</body>
+</html>

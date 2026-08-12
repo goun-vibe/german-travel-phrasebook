@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>독일어 여행 회화</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2C5F8A">
 <style>
   :root {
     --main: #2C5F8A;
@@ -309,6 +311,10 @@ const phrases = [
   { cat: "인사 / 기본표현", de: "Ich verstehe nicht.", ko: "이히 페어슈테에 니히트", mean: "이해 못했어요" },
   { cat: "인사 / 기본표현", de: "Können Sie das wiederholen?", ko: "쾨넨 지 다스 비더홀렌", mean: "다시 말씀해 주시겠어요?" },
   { cat: "인사 / 기본표현", de: "Langsamer, bitte.", ko: "랑자머, 비테", mean: "천천히 말씀해 주세요" },
+  { cat: "인사 / 기본표현", de: "Kein Problem.", ko: "카인 프로블렘", mean: "문제없어요" },
+  { cat: "인사 / 기본표현", de: "Alles klar.", ko: "알레스 클라", mean: "알겠어요" },
+  { cat: "인사 / 기본표현", de: "Wie bitte?", ko: "비 비테", mean: "다시 한번요? (잘 못 들었을 때)" },
+  { cat: "인사 / 기본표현", de: "Vielen Dank für Ihre Hilfe.", ko: "필렌 당크 퓌어 이레 힐페", mean: "도와주셔서 감사합니다" },
 
   { cat: "공항 / 입국", de: "Wo ist der Ausgang?", ko: "보 이스트 데어 아우스강", mean: "출구가 어디예요?" },
   { cat: "공항 / 입국", de: "Wo ist das Gepäckband?", ko: "보 이스트 다스 게패크반트", mean: "수하물 찾는 곳이 어디예요?" },
@@ -317,6 +323,9 @@ const phrases = [
   { cat: "공항 / 입국", de: "Ich bleibe eine Woche.", ko: "이히 블라이베 아이네 보헤", mean: "일주일 머물 거예요" },
   { cat: "공항 / 입국", de: "Wo finde ich ein Taxi?", ko: "보 핀데 이히 아인 탁시", mean: "택시는 어디서 타요?" },
   { cat: "공항 / 입국", de: "Wo ist die Information?", ko: "보 이스트 디 인포마치온", mean: "안내소는 어디예요?" },
+  { cat: "공항 / 입국", de: "Mein Koffer ist beschädigt.", ko: "마인 코퍼 이스트 베셰디크트", mean: "제 캐리어가 파손됐어요" },
+  { cat: "공항 / 입국", de: "Wo ist die Passkontrolle?", ko: "보 이스트 디 파스콘트롤레", mean: "여권 심사대가 어디예요?" },
+  { cat: "공항 / 입국", de: "Ich habe meinen Anschlussflug verpasst.", ko: "이히 하베 마이넨 안슐루스플룩 페어파스트", mean: "환승 비행기를 놓쳤어요" },
 
   { cat: "호텔", de: "Ich habe eine Reservierung.", ko: "이히 하베 아이네 레저비어룽", mean: "예약했어요" },
   { cat: "호텔", de: "Haben Sie ein Zimmer frei?", ko: "하벤 지 아인 침머 프라이", mean: "빈 방 있나요?" },
@@ -326,6 +335,10 @@ const phrases = [
   { cat: "호텔", de: "Ich möchte auschecken.", ko: "이히 뫼히테 아우스체켄", mean: "체크아웃 할게요" },
   { cat: "호텔", de: "Kann ich früher einchecken?", ko: "칸 이히 프뤼어 아인체켄", mean: "일찍 체크인 할 수 있나요?" },
   { cat: "호텔", de: "Das WLAN-Passwort, bitte.", ko: "다스 벨란 파스보르트, 비테", mean: "와이파이 비밀번호 알려주세요" },
+  { cat: "호텔", de: "Können Sie mir ein Taxi rufen?", ko: "쾨넨 지 미어 아인 탁시 루펜", mean: "택시 좀 불러주시겠어요?" },
+  { cat: "호텔", de: "Das Zimmer ist nicht sauber.", ko: "다스 침머 이스트 니히트 자우버", mean: "방이 깨끗하지 않아요" },
+  { cat: "호텔", de: "Kann ich mein Gepäck hier lassen?", ko: "칸 이히 마인 게패크 히어 라센", mean: "짐을 여기 맡겨도 될까요?" },
+  { cat: "호텔", de: "Gibt es einen Weckruf-Service?", ko: "깁트 에스 아이넨 벡루프 저비스", mean: "모닝콜 서비스가 있나요?" },
 
   { cat: "레스토랑 / 카페", de: "Einen Tisch für zwei, bitte.", ko: "아이넨 티슈 퓌어 츠바이, 비테", mean: "2인석 부탁해요" },
   { cat: "레스토랑 / 카페", de: "Die Speisekarte, bitte.", ko: "디 슈파이제카르테, 비테", mean: "메뉴판 주세요" },
@@ -337,6 +350,11 @@ const phrases = [
   { cat: "레스토랑 / 카페", de: "Kann ich mit Karte bezahlen?", ko: "칸 이히 미트 카르테 베찰렌", mean: "카드로 계산할 수 있나요?" },
   { cat: "레스토랑 / 카페", de: "Zum Wohl! / Prost!", ko: "춤 볼 / 프로스트", mean: "건배!" },
   { cat: "레스토랑 / 카페", de: "Wo ist die Toilette?", ko: "보 이스트 디 토일레테", mean: "화장실이 어디예요?" },
+  { cat: "레스토랑 / 카페", de: "Ich habe eine Allergie gegen Nüsse.", ko: "이히 하베 아이네 알러기 게겐 뉘세", mean: "견과류 알레르기가 있어요" },
+  { cat: "레스토랑 / 카페", de: "Kann ich das zum Mitnehmen bekommen?", ko: "칸 이히 다스 춤 미트네멘 베코멘", mean: "포장 가능한가요?" },
+  { cat: "레스토랑 / 카페", de: "Noch ein Wasser, bitte.", ko: "노흐 아인 바서, 비테", mean: "물 한 잔 더 주세요" },
+  { cat: "레스토랑 / 카페", de: "Ist hier noch frei?", ko: "이스트 히어 노흐 프라이", mean: "여기 자리 있나요? (합석 문의)" },
+  { cat: "레스토랑 / 카페", de: "Guten Appetit!", ko: "구텐 아페티트", mean: "맛있게 드세요!" },
 
   { cat: "쇼핑", de: "Was kostet das?", ko: "바스 코스테트 다스", mean: "이거 얼마예요?" },
   { cat: "쇼핑", de: "Das ist zu teuer.", ko: "다스 이스트 추 토이어", mean: "너무 비싸요" },
@@ -346,6 +364,9 @@ const phrases = [
   { cat: "쇼핑", de: "Nur schauen, danke.", ko: "누어 샤우엔, 당케", mean: "그냥 구경 중이에요" },
   { cat: "쇼핑", de: "Kann ich eine Tüte bekommen?", ko: "칸 이히 아이네 튀테 베코멘", mean: "봉투 하나 주시겠어요?" },
   { cat: "쇼핑", de: "Wo ist die Kasse?", ko: "보 이스트 디 카세", mean: "계산대가 어디예요?" },
+  { cat: "쇼핑", de: "Akzeptieren Sie Kreditkarten?", ko: "아크첍티어렌 지 크레딧카르텐", mean: "신용카드 되나요?" },
+  { cat: "쇼핑", de: "Kann ich das umtauschen?", ko: "칸 이히 다스 움타우셴", mean: "교환할 수 있나요?" },
+  { cat: "쇼핑", de: "Wann schließt das Geschäft?", ko: "반 슐리스트 다스 게셰프트", mean: "가게 몇 시에 닫아요?" },
 
   { cat: "길찾기 / 교통", de: "Wo ist der Bahnhof?", ko: "보 이스트 데어 반호프", mean: "기차역이 어디예요?" },
   { cat: "길찾기 / 교통", de: "Wie komme ich zum Stadtzentrum?", ko: "비 코메 이히 춤 슈타트첸트룸", mean: "시내로 어떻게 가나요?" },
@@ -355,6 +376,11 @@ const phrases = [
   { cat: "길찾기 / 교통", de: "Welche Linie fährt zum Flughafen?", ko: "벨헤 리니에 페어트 춤 플룩하펜", mean: "공항 가는 노선이 뭐예요?" },
   { cat: "길찾기 / 교통", de: "Halten Sie hier, bitte.", ko: "할텐 지 히어, 비테", mean: "여기서 세워주세요 (택시)" },
   { cat: "길찾기 / 교통", de: "Links. / Rechts. / Geradeaus.", ko: "링크스 / 레히츠 / 게라데아우스", mean: "왼쪽 / 오른쪽 / 직진" },
+  { cat: "길찾기 / 교통", de: "Wie weit ist es zu Fuß?", ko: "비 바이트 이스트 에스 추 푸스", mean: "걸어서 얼마나 걸려요?" },
+  { cat: "길찾기 / 교통", de: "Wo kann ich ein Ticket kaufen?", ko: "보 칸 이히 아인 티켓 카우펜", mean: "표는 어디서 사요?" },
+  { cat: "길찾기 / 교통", de: "Muss ich umsteigen?", ko: "무스 이히 움슈타이겐", mean: "환승해야 하나요?" },
+  { cat: "길찾기 / 교통", de: "Fährt dieser Bus zum Zentrum?", ko: "페어트 디저 부스 춤 첸트룸", mean: "이 버스 시내로 가나요?" },
+  { cat: "길찾기 / 교통", de: "Wo ist die nächste U-Bahn-Station?", ko: "보 이스트 디 넥스테 우반 슈타치온", mean: "가장 가까운 지하철역이 어디예요?" },
 
   { cat: "응급상황", de: "Hilfe!", ko: "힐페", mean: "도와주세요!" },
   { cat: "응급상황", de: "Ich brauche einen Arzt.", ko: "이히 브라우헤 아이넨 아르츠트", mean: "의사가 필요해요" },
@@ -364,6 +390,32 @@ const phrases = [
   { cat: "응급상황", de: "Ich habe meinen Pass verloren.", ko: "이히 하베 마이넨 파스 페어로렌", mean: "여권을 잃어버렸어요" },
   { cat: "응급상황", de: "Wo ist das nächste Krankenhaus?", ko: "보 이스트 다스 넥스테 크랑켄하우스", mean: "가장 가까운 병원이 어디예요?" },
   { cat: "응급상황", de: "Mir ist schlecht.", ko: "미어 이스트 슐레히트", mean: "몸이 안 좋아요" },
+  { cat: "응급상황", de: "Ich bin allergisch gegen ...", ko: "이히 빈 알러기쉬 게겐 ...", mean: "저는 ...에 알레르기가 있어요" },
+  { cat: "응급상황", de: "Meine Kreditkarte wurde gestohlen.", ko: "마이네 크레딧카르테 부르데 게슈톨렌", mean: "카드를 도난당했어요" },
+  { cat: "응급상황", de: "Wo ist die koreanische Botschaft?", ko: "보 이스트 디 코레아니셰 보트샤프트", mean: "한국 대사관이 어디예요?" },
+
+  { cat: "약국 / 건강", de: "Wo ist die nächste Apotheke?", ko: "보 이스트 디 넥스테 아포테케", mean: "가장 가까운 약국이 어디예요?" },
+  { cat: "약국 / 건강", de: "Haben Sie etwas gegen Kopfschmerzen?", ko: "하벤 지 에트바스 게겐 콥프슈메르첸", mean: "두통약 있나요?" },
+  { cat: "약국 / 건강", de: "Ich brauche ein Pflaster.", ko: "이히 브라우헤 아인 플라스터", mean: "반창고가 필요해요" },
+  { cat: "약국 / 건강", de: "Ich habe Bauchschmerzen.", ko: "이히 하베 바우흐슈메르첸", mean: "배가 아파요" },
+  { cat: "약국 / 건강", de: "Haben Sie etwas gegen Erkältung?", ko: "하벤 지 에트바스 게겐 에어켈퉁", mean: "감기약 있나요?" },
+
+  { cat: "통신 / 인터넷", de: "Gibt es hier kostenloses WLAN?", ko: "깁트 에스 히어 코스텐로제스 벨란", mean: "여기 무료 와이파이 있나요?" },
+  { cat: "통신 / 인터넷", de: "Wo kann ich eine SIM-Karte kaufen?", ko: "보 칸 이히 아이네 짐카르테 카우펜", mean: "유심카드는 어디서 사요?" },
+  { cat: "통신 / 인터넷", de: "Mein Handy-Akku ist leer.", ko: "마인 핸디 아쿠 이스트 레어", mean: "휴대폰 배터리가 다 됐어요" },
+  { cat: "통신 / 인터넷", de: "Wo finde ich eine Steckdose?", ko: "보 핀데 이히 아이네 슈텍도제", mean: "콘센트가 어디 있어요?" },
+
+  { cat: "관광 / 사진", de: "Können Sie ein Foto von uns machen?", ko: "쾨넨 지 아인 포토 폰 운스 마헨", mean: "사진 좀 찍어주시겠어요?" },
+  { cat: "관광 / 사진", de: "Wie viel kostet der Eintritt?", ko: "비 필 코스테트 데어 아인트리트", mean: "입장료가 얼마예요?" },
+  { cat: "관광 / 사진", de: "Gibt es eine Führung auf Englisch?", ko: "깁트 에스 아이네 퓌룽 아우프 엥글리쉬", mean: "영어 가이드 투어 있나요?" },
+  { cat: "관광 / 사진", de: "Wann öffnet das Museum?", ko: "반 외프네트 다스 무제움", mean: "박물관 몇 시에 열어요?" },
+  { cat: "관광 / 사진", de: "Wann schließt das Museum?", ko: "반 슐리스트 다스 무제움", mean: "박물관 몇 시에 닫아요?" },
+
+  { cat: "날씨 / 스몰토크", de: "Wie ist das Wetter heute?", ko: "비 이스트 다스 베터 호이테", mean: "오늘 날씨 어때요?" },
+  { cat: "날씨 / 스몰토크", de: "Es regnet.", ko: "에스 레그네트", mean: "비가 와요" },
+  { cat: "날씨 / 스몰토크", de: "Es ist kalt.", ko: "에스 이스트 칼트", mean: "추워요" },
+  { cat: "날씨 / 스몰토크", de: "Es ist warm.", ko: "에스 이스트 밤", mean: "따뜻해요" },
+  { cat: "날씨 / 스몰토크", de: "Schönes Wetter, oder?", ko: "쇠네스 베터, 오더", mean: "날씨 좋죠?" },
 
   { cat: "숫자 / 시간", de: "eins, zwei, drei, vier, fünf", ko: "아인스, 츠바이, 드라이, 피어, 퓐프", mean: "1, 2, 3, 4, 5" },
   { cat: "숫자 / 시간", de: "sechs, sieben, acht, neun, zehn", ko: "젝스, 지벤, 아흐트, 노인, 첸", mean: "6, 7, 8, 9, 10" },
@@ -709,6 +761,12 @@ searchEl.addEventListener("input", (e) => {
 renderModeTabs();
 renderTabs();
 renderMode();
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
 </script>
 
 </body>

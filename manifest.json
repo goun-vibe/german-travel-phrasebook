@@ -1,0 +1,9 @@
+{
+  "name": "독일어 여행 회화",
+  "short_name": "독일어회화",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F7F5F0",
+  "theme_color": "#2C5F8A"
+}
